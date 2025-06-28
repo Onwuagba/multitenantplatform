@@ -1,0 +1,101 @@
+[
+{
+  "model": "tenants.tenant",
+  "pk": "525f75dd-56c9-427f-8b13-b2e738092a23",
+  "fields": {
+    "name": "Default Tenant",
+    "domain": "default",
+    "created_at": "2025-06-30T13:08:32.967Z",
+    "is_active": true
+  }
+},
+{
+  "model": "tenants.tenantuser",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$chGV5juzhOUhnEYhJLKvab$E1GycAxU+Ch8ChiotihdNw/nqJu/YK8bCJTMZY6RW5I=",
+    "last_login": null,
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@example.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-06-30T13:08:32.970Z",
+    "tenant": "525f75dd-56c9-427f-8b13-b2e738092a23",
+    "role": "admin",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "tenants.auditlog",
+  "pk": "3aebee95-5678-4d8c-9f09-5535825c5543",
+  "fields": {
+    "tenant": "525f75dd-56c9-427f-8b13-b2e738092a23",
+    "user": 1,
+    "action": "LOGIN",
+    "resource_type": "USER",
+    "resource_id": "1",
+    "changes": {},
+    "timestamp": "2025-06-30T13:13:46.027Z",
+    "ip_address": "127.0.0.1"
+  }
+},
+{
+  "model": "tenants.auditlog",
+  "pk": "3cde3d6e-f917-49a8-b627-b119eb292d50",
+  "fields": {
+    "tenant": "525f75dd-56c9-427f-8b13-b2e738092a23",
+    "user": 1,
+    "action": "LOGIN",
+    "resource_type": "USER",
+    "resource_id": "1",
+    "changes": {},
+    "timestamp": "2025-06-30T13:13:36.634Z",
+    "ip_address": "127.0.0.1"
+  }
+},
+{
+  "model": "tenants.auditlog",
+  "pk": "69893831-423f-4c38-92e1-cc6485ac4e7d",
+  "fields": {
+    "tenant": "525f75dd-56c9-427f-8b13-b2e738092a23",
+    "user": 1,
+    "action": "LOGIN",
+    "resource_type": "USER",
+    "resource_id": "1",
+    "changes": {},
+    "timestamp": "2025-06-30T13:36:57.894Z",
+    "ip_address": "127.0.0.1"
+  }
+},
+{
+  "model": "integrations.externalservice",
+  "pk": "8b24f12c-dd7f-4b03-89cd-58e23836c515",
+  "fields": {
+    "name": "communication-service",
+    "base_url": "http://localhost:8000/api/mock",
+    "is_active": true
+  }
+},
+{
+  "model": "integrations.externalservice",
+  "pk": "936a27a1-61a9-4c0b-8c02-347eefc3e260",
+  "fields": {
+    "name": "user-service",
+    "base_url": "http://localhost:8000/api/mock",
+    "is_active": true
+  }
+},
+{
+  "model": "integrations.externalservice",
+  "pk": "f2fe4bf9-122b-46ae-b3bf-bfa74ef31ef8",
+  "fields": {
+    "name": "payment-service",
+    "base_url": "http://localhost:8000/api/mock",
+    "is_active": true
+  }
+}
+]

@@ -1,0 +1,128 @@
+{% extends "admin/index.html" %}
+{% load admin_urls static admin_list %}
+
+{% block extrahead %}
+{{ block.super }}
+<style>
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+}
+.stat-card {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+}
+.stat-number {
+    font-size: 2em;
+    font-weight: bold;
+    color: #007cba;
+}
+.stat-label {
+    color: #666;
+    margin-top: 5px;
+}
+.health-indicator {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+.health-healthy { background-color: #28a745; }
+.health-degraded { background-color: #ffc107; }
+.health-down { background-color: #dc3545; }
+.recent-activity {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    margin: 20px 0;
+    padding: 20px;
+}
+.activity-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+.activity-item:last-child {
+    border-bottom: none;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>System Overview</h1>
+
+<div class="dashboard-stats">
+    <div class="stat-card">
+        <div class="stat-number">{{ tenant_count }}</div>
+        <div class="stat-label">Total Tenants</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">{{ active_tenants }}</div>
+        <div class="stat-label">Active Tenants</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">{{ total_users }}</div>
+        <div class="stat-label">Total Users</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">{{ mock_users }}</div>
+        <div class="stat-label">Mock Users</div>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+    <div class="recent-activity">
+        <h3>Integration Health</h3>
+        {% for health in health_status %}
+        <div class="activity-item">
+            <span class="health-indicator health-{{ health.status }}"></span>
+            <strong>{{ health.service.name }}</strong>
+            {% if health.response_time %}
+                - {{ health.response_time|floatformat:3 }}s
+            {% endif %}
+            {% if health.error_message %}
+                <br><small style="color: #dc3545;">{{ health.error_message }}</small>
+            {% endif %}
+        </div>
+        {% empty %}
+        <p>No health data available</p>
+        {% endfor %}
+    </div>
+
+    <div class="recent-activity">
+        <h3>Recent Webhook Events</h3>
+        {% for webhook in recent_webhooks %}
+        <div class="activity-item">
+            <strong>{{ webhook.event_type }}</strong> - {{ webhook.service.name }}
+            <br><small>{{ webhook.created_at|timesince }} ago - 
+            <span style="color: {% if webhook.status == 'completed' %}green{% elif webhook.status == 'failed' %}red{% else %}orange{% endif %};">
+                {{ webhook.status|upper }}
+            </span></small>
+        </div>
+        {% empty %}
+        <p>No recent webhook events</p>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="recent-activity">
+    <h3>Recent Audit Logs</h3>
+    {% for audit in recent_audits %}
+    <div class="activity-item">
+        <strong>{{ audit.action }}</strong> {{ audit.resource_type }} 
+        by {% if audit.user %}{{ audit.user.username }}{% else %}System{% endif %}
+        in {{ audit.tenant.name }}
+        <br><small>{{ audit.timestamp|timesince }} ago from {{ audit.ip_address|default:"Unknown IP" }}</small>
+    </div>
+    {% empty %}
+    <p>No recent audit logs</p>
+    {% endfor %}
+</div>
+
+{{ block.super }}
+{% endblock %}

@@ -1,0 +1,49 @@
+chmod +x setup.sh
+./setup.sh
+python manage.py runserver
+
+
+
+============ docs ========
+Comprehensive API Documentation
+Created API_DOCUMENTATION.md with complete endpoint documentation including:
+
+Tenant Management (8 endpoints)
+Authentication (POST /api/tenants/auth/)
+
+User CRUD operations (GET/POST/PUT/DELETE /api/tenants/users/)
+
+Organization CRUD operations (GET/POST/PUT/DELETE /api/tenants/organizations/)
+
+Audit logs (GET /api/tenants/audit-logs/)
+
+Integration Engine (6 endpoints)
+Webhook receiver (POST /api/integrations/webhooks/{service_name}/)
+
+Webhook events (GET /api/integrations/webhook-events/)
+
+Integration health (GET /api/integrations/health/)
+
+Data sync management (GET /api/integrations/data-sync/)
+
+Manual sync trigger (POST /api/integrations/sync/trigger/)
+
+Mock Services (8 endpoints)
+Mock users, subscriptions, notifications (CRUD operations)
+
+Health check (GET /api/mock/health/)
+
+Data sync endpoints (GET /api/mock/api/data/{type}/)
+
+Documentation includes:
+Request/response examples for each endpoint
+
+Authentication requirements
+
+Headers needed
+
+Error response formats
+
+Testing curl commands
+
+All endpoints now return consistent JSON responses with the standardized format: {status, message/error, data}.
