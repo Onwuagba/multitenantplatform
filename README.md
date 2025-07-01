@@ -4,14 +4,14 @@ A Django REST Framework project implementing a multi-tenant SaaS platform with e
 
 ## Features
 
-### Part A: Multi-Tenant Platform (60%)
+### Part A: Multi-Tenant Platform
 - **Data Isolation**: Database-level tenant isolation using middleware
 - **Authentication & Authorization**: JWT-based auth with role management
 - **Core API Endpoints**: RESTful APIs for users and organizations
 - **Audit Logging**: Complete audit trail for all data modifications
 - **API Protections**: Rate limiting and input validation
 
-### Part B: External Integration Engine (40%)
+### Part B: External Integration Engine
 - **Webhook Handling**: Accept webhooks from multiple external services
 - **Async Event Handling**: Celery-based processing with retry logic
 - **External API Calls**: Robust error handling for 3rd-party services
@@ -129,11 +129,3 @@ Run the test suite:
 source venv/bin/activate
 python manage.py test
 ```
-
-## Production Considerations
-
-1. **Database**: Use PostgreSQL with proper indexing
-2. **Redis**: Configure Redis persistence for production
-3. **Security**: Use environment variables for secrets
-4. **Monitoring**: Add proper logging and monitoring
-5. **Scaling**: Consider database sharding for large tenant counts
